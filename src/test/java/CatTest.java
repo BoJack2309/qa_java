@@ -8,6 +8,14 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import java.util.List;
 
+
+/*
+Случайно запушил без создания второй ветви,
+поэтому делаю второй коммит, чтобы была возможность сделать
+pull-request
+
+ */
+
 public class CatTest {
 
     @Mock
