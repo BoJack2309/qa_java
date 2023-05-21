@@ -1,11 +1,11 @@
 package com.example;
 
 import java.util.List;
-
+//
 public class Lion {
 
-    private Feline feline;
-    boolean hasMane;
+    private final Feline feline;
+    private final boolean hasMane;
 
     public Lion(Feline feline, String sex) throws Exception {
         this.feline = feline;

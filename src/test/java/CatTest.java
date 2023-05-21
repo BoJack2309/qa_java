@@ -3,31 +3,33 @@ import com.example.Feline;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import java.util.ArrayList;
 import java.util.List;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class CatTest {
-
-    @Mock
-    Feline feline;
+    private Cat cat;
+    private Feline feline;
 
     @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
+    public void setUp(){
+        feline = mock(Feline.class);
+        cat = new Cat(feline);
     }
 
     @Test
     public void getSoundTest() {
-        Cat cat = new Cat(feline);
-        Assert.assertEquals("Мяу", cat.getSound());
+        String sound = cat.getSound();
+        Assert.assertEquals("Мяу", sound);
     }
 
     @Test
     public void getFoodTest() throws Exception {
-        Cat cat = new Cat(feline);
-        Mockito.when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
-        Assert.assertEquals(List.of("Животные", "Птицы", "Рыба"), cat.getFood());
+        List<String> food = new ArrayList<>();
+        food.add("meat");
+        when(feline.eatMeat()).thenReturn(food);
+        List<String> catFood = cat.getFood();
+        Assert.assertEquals(food, catFood);
     }
 }

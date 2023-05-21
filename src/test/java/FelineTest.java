@@ -1,52 +1,39 @@
+import com.example.Animal;
 import com.example.Feline;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-
-@RunWith(Parameterized.class)
 public class FelineTest {
-    private int expected;
-    private int actual;
-
-    public FelineTest(int expected, int actual) {
-        this.expected = expected;
-        this.actual = actual;
-    }
-
-    @Parameterized.Parameters
-    public static Object[][] getData() {
-        return new Object[][]{
-                {1, 1},
-                {2, 2}
-        };
-    }
 
     @Test
-    public void eatMeat() throws Exception {
-        Feline feline = new Feline();
-        assertEquals(List.of("Животные", "Птицы", "Рыба"), feline.eatMeat());
-    }
-
-    @Test
-    public void getFamily() {
+    public void testGetFamily() {
         Feline feline = new Feline();
         assertEquals("Кошачьи", feline.getFamily());
     }
 
     @Test
-    public void testGetKittens1() {
+    public void testEatMeat() throws Exception {
+        Animal animalMock = mock(Animal.class);
         Feline feline = new Feline();
-        assertEquals(1, feline.getKittens());
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
+        when(animalMock.getFood("Хищник")).thenReturn(expectedFood);
+        List<String> actualFood = feline.eatMeat();
+        assertEquals(expectedFood, actualFood);
+    }
+
+    @Test(expected = Exception.class)
+    public void testEmptyAnimalKind() throws Exception {
+        Animal animalMock = mock(Animal.class);
+        when(animalMock.getFood("")).thenThrow(new Exception("Неизвестный вид животного, используйте значение Травоядное или Хищник"));
+        animalMock.getFood("");
     }
 
     @Test
-    public void testGetKittens2() {
+    public void testGetKittens () {
         Feline feline = new Feline();
-        assertEquals(expected, feline.getKittens(actual));
+        assertEquals(1, feline.getKittens());
     }
 }
